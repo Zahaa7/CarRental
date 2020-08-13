@@ -1,8 +1,8 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.services.interfaces.CustomerPay;
+import ro.jademy.carrental.services.interfaces.CustomerPaymentService;
 
-public class CustomerPayImpl implements CustomerPay {
+public class CustomerPaymentServiceImpl implements CustomerPaymentService {
 
     @Override
     public void applyDiscount() {

@@ -1,11 +1,11 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.services.interfaces.CustomerService;
+import ro.jademy.carrental.services.interfaces.CustomerFilterService;
 import ro.jademy.carrental.users.Customer;
 
 import java.util.List;
 
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerFilterServiceImpl implements CustomerFilterService {
 
 
     @Override

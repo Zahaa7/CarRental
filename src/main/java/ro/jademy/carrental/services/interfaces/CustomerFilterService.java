@@ -3,7 +3,7 @@ package ro.jademy.carrental.services.interfaces;
 import ro.jademy.carrental.users.Customer;
 import java.util.List;
 
-public interface CustomerService {
+public interface CustomerFilterService {
 
     List<Customer> getAllCustomers();
     Customer getCustomersByFirstName(String firstName);

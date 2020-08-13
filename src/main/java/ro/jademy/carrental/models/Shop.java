@@ -1,33 +1,54 @@
 package ro.jademy.carrental.models;
 
 import ro.jademy.carrental.models.cars.Car;
-import ro.jademy.carrental.services.CarServiceImpl;
-import ro.jademy.carrental.services.CustomerServiceImpl;
-import ro.jademy.carrental.services.interfaces.CarService;
-import ro.jademy.carrental.services.interfaces.CustomerService;
+import ro.jademy.carrental.services.CarFilterServiceImpl;
+import ro.jademy.carrental.services.CustomerFilterServiceImpl;
+import ro.jademy.carrental.services.CustomerPaymentServiceImpl;
+import ro.jademy.carrental.services.interfaces.CarFilterService;
+import ro.jademy.carrental.services.interfaces.CustomerFilterService;
+import ro.jademy.carrental.services.interfaces.CustomerPaymentService;
 import ro.jademy.carrental.users.Customer;
+import ro.jademy.carrental.users.Salesman;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Shop {
 
-    private CarService carService = new CarServiceImpl();
-    private CustomerService customerService = new CustomerServiceImpl();
+    private static final Scanner input = new Scanner(System.in);
+    private Customer loggedAsCustomer;
+    private Salesman loggedAsSalesman;
+    private CarFilterService carFilterService = new CarFilterServiceImpl();
+    private CustomerFilterService customerFilterService = new CustomerFilterServiceImpl();
 
-    public boolean login(String username, String password) {
-
-        // TODO: implement a basic user login
-
-        return false;
-    }
 
     public List<Car> getAllCars() {
-        return carService.getAllCars();
+        return carFilterService.getAllCars();
+    }
+    public List<Customer> getAllCustomers() {
+        return customerFilterService.getAllCustomers();
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public Shop(CarFilterService carFilterService, CustomerFilterService customerFilterService) {
+        this.carFilterService = carFilterService;
+        this.customerFilterService = customerFilterService;
     }
+
+    public void doLogIn(String userName, String password) {
+        for (Customer customer: getAllCustomers()) {
+            if (userName.equals(customer.getUserName()) && password.equals(customer.getPassword())) {
+                loggedAsCustomer = customer;
+                if (customer.getFirstName() != null) {
+                    System.out.println("Welcome " + customer.getFirstName() + " " + customer.getLastName() +  "!");
+                }
+            }
+        }
+    }
+
+
+
+
+
     
     public void showMenu() {
 

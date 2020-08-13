@@ -1,6 +1,6 @@
 package ro.jademy.carrental.services.interfaces;
 
-public interface CustomerPay {
+public interface CustomerPaymentService {
 
     default void applyDiscount() {
         // only for membership pass

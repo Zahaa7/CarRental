@@ -1,11 +1,11 @@
 package ro.jademy.carrental.services;
 
 import ro.jademy.carrental.models.cars.Car;
-import ro.jademy.carrental.services.interfaces.CarService;
+import ro.jademy.carrental.services.interfaces.CarFilterService;
 import ro.jademy.carrental.users.Customer;
 import java.util.List;
 
-public class CarServiceImpl implements CarService {
+public class CarFilterServiceImpl implements CarFilterService {
 
 
     @Override
@@ -14,27 +14,27 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> getAllCarsByUser(Customer customer) {
+    public List<Car> filterAllCarsByUser(Customer customer) {
         return null;
     }
 
     @Override
-    public Car getCarById(Long id) {
+    public Car filterCarByMake(String make) {
         return null;
     }
 
     @Override
-    public Car getCarByMake(String make) {
+    public Car filterCarByModel(String model) {
         return null;
     }
 
     @Override
-    public Car getCarByModel(String model) {
+    public Car filterCarByFabricationYear(int fabricationYear) {
         return null;
     }
 
     @Override
-    public Car getCarByFabricationYear(int fabricationYear) {
+    public Car filterCarByBaseRentPrice(int baseRentPrice) {
         return null;
     }
 }

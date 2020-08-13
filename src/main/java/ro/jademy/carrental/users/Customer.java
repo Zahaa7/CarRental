@@ -1,6 +1,6 @@
 package ro.jademy.carrental.users;
 
-import ro.jademy.carrental.models.RentedCar;
+import ro.jademy.carrental.models.RentedCarHistory;
 import ro.jademy.carrental.models.User;
 
 import java.time.LocalDate;
@@ -13,11 +13,11 @@ public class Customer extends User {
     private boolean membership;
     private LocalDate licenceObtained;
     private LocalDate licenceExpiration;
-    private List<RentedCar> rentedCarsHistory;
+    private List<RentedCarHistory> rentedCarsHistory;
 
     public Customer(String firstName, String lastName, String userName, String password, String address, int age,
                     boolean membership, LocalDate licenceObtained, LocalDate licenceExpiration,
-                    List<RentedCar> rentedCarsHistory) {
+                    List<RentedCarHistory> rentedCarsHistory) {
         super(firstName, lastName, userName, password);
         this.address = address;
         this.age = age;
@@ -67,11 +67,11 @@ public class Customer extends User {
         this.licenceExpiration = licenceExpiration;
     }
 
-    public List<RentedCar> getRentedCarsHistory() {
+    public List<RentedCarHistory> getRentedCarsHistory() {
         return rentedCarsHistory;
     }
 
-    public void setRentedCarsHistory(List<RentedCar> rentedCarsHistory) {
+    public void setRentedCarsHistory(List<RentedCarHistory> rentedCarsHistory) {
         this.rentedCarsHistory = rentedCarsHistory;
     }
 }

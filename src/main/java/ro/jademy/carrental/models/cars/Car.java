@@ -1,6 +1,6 @@
 package ro.jademy.carrental.models.cars;
 
-import ro.jademy.carrental.models.RentedCar;
+import ro.jademy.carrental.models.RentedCarHistory;
 
 public class Car {
 
@@ -15,15 +15,18 @@ public class Car {
     private String transmissionType;      // automatic, manual
     private String engine;                // TSI twin-charger, EcoBoost, V8 twin-turbo etc.
     private double mileage;
+    private int horsePower;
     private int doorNumber;
     private int seatNumber;
     private int fabricationYear;
-    private int rentPrice;
-    private RentedCar carRented;
+    private int baseRentPrice;
+    // private boolean gps;
+    // private boolean ac;
+    private RentedCarHistory carRentedHistory;
 
     public Car(String vinNumber, String make, String model, String fuelType, String carType, String color,
-               String transmissionType, String engine, double mileage, int doorNumber, int seatNumber,
-               int fabricationYear, int rentPrice, RentedCar carRented) {
+               String transmissionType, String engine, double mileage, int horsePower, int doorNumber, int seatNumber,
+               int fabricationYear, int baseRentPrice) {
         this.vinNumber = vinNumber;
         this.make = make;
         this.model = model;
@@ -33,11 +36,12 @@ public class Car {
         this.transmissionType = transmissionType;
         this.engine = engine;
         this.mileage = mileage;
+        this.horsePower = horsePower;
         this.doorNumber = doorNumber;
         this.seatNumber = seatNumber;
         this.fabricationYear = fabricationYear;
-        this.rentPrice = rentPrice;
-        this.carRented = carRented;
+        this.baseRentPrice = baseRentPrice;
+        this.carRentedHistory = getCarRentedHistory();
     }
 
     public String getVinNumber() {
@@ -108,6 +112,14 @@ public class Car {
         this.mileage = mileage;
     }
 
+    public int getHorsePower() {
+        return horsePower;
+    }
+
+    public void setHorsePower(int horsePower) {
+        this.horsePower = horsePower;
+    }
+
     public int getDoorNumber() {
         return doorNumber;
     }
@@ -132,28 +144,36 @@ public class Car {
         this.fabricationYear = fabricationYear;
     }
 
-    public int getRentPrice() {
-        return rentPrice;
+    public int getBaseRentPrice() {
+        return baseRentPrice;
     }
 
-    public void setRentPrice(int rentPrice) {
-        this.rentPrice = rentPrice;
+    public void setBaseRentPrice(int baseRentPrice) {
+        this.baseRentPrice = baseRentPrice;
     }
 
-    public RentedCar getCarRented() {
-        return carRented;
-    }
-
-    public void setCarRented(RentedCar carRented) {
-        this.carRented = carRented;
+    public RentedCarHistory getCarRentedHistory() {
+        return carRentedHistory;
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "make='" + make + '\'' +
+                "vinNumber='" + vinNumber + '\'' +
+                ", make='" + make + '\'' +
                 ", model='" + model + '\'' +
+                ", fuelType='" + fuelType + '\'' +
+                ", carType='" + carType + '\'' +
+                ", color='" + color + '\'' +
+                ", transmissionType='" + transmissionType + '\'' +
+                ", engine='" + engine + '\'' +
+                ", mileage=" + mileage +
+                ", horsePower=" + horsePower +
+                ", doorNumber=" + doorNumber +
+                ", seatNumber=" + seatNumber +
                 ", fabricationYear=" + fabricationYear +
+                ", baseRentPrice=" + baseRentPrice +
+                ", carRentedHistory=" + carRentedHistory +
                 '}';
     }
 
@@ -163,8 +183,5 @@ public class Car {
     public void updateMileage(double mileageAmount) {
 
     }
-
-
-
 
 }
