@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class Shop {
 
     private static final Scanner input = new Scanner(System.in);
-    private Customer loggedAsCustomer;
-    private Salesman loggedAsSalesman;
     private CarFilterService carFilterService = new CarFilterServiceImpl();
     private CustomerFilterService customerFilterService = new CustomerFilterServiceImpl();
 
@@ -27,27 +25,7 @@ public class Shop {
         return customerFilterService.getAllCustomers();
     }
 
-    public Shop(CarFilterService carFilterService, CustomerFilterService customerFilterService) {
-        this.carFilterService = carFilterService;
-        this.customerFilterService = customerFilterService;
-    }
 
-    public void doLogIn(String userName, String password) {
-        for (Customer customer: getAllCustomers()) {
-            if (userName.equals(customer.getUserName()) && password.equals(customer.getPassword())) {
-                loggedAsCustomer = customer;
-                if (customer.getFirstName() != null) {
-                    System.out.println("Welcome " + customer.getFirstName() + " " + customer.getLastName() +  "!");
-                }
-            }
-        }
-    }
-
-
-
-
-
-    
     public void showMenu() {
 
         System.out.println(" -----------------------------------------------");

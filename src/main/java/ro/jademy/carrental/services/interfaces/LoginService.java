@@ -15,4 +15,16 @@ public interface LoginService {
     default void doLogOut() {
 
     }
+
+    default boolean isLoggedIn() {
+        return false;
+    }
+
+    default boolean isLoggedInAsCustomer() {
+        return false;
+    }
+
+    default boolean isLoggedInAsSalesman() {
+        return false;
+    }
 }

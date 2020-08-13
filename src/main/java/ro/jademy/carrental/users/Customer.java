@@ -9,18 +9,18 @@ import java.util.List;
 public class Customer extends User {
 
     private String address;
-    private int age;
+    private LocalDate birthDate;
     private boolean membership;
     private LocalDate licenceObtained;
     private LocalDate licenceExpiration;
     private List<RentedCarHistory> rentedCarsHistory;
 
-    public Customer(String firstName, String lastName, String userName, String password, String address, int age,
-                    boolean membership, LocalDate licenceObtained, LocalDate licenceExpiration,
+    public Customer(String firstName, String lastName, String userName, String password, String address,
+                    LocalDate birthDate, boolean membership, LocalDate licenceObtained, LocalDate licenceExpiration,
                     List<RentedCarHistory> rentedCarsHistory) {
         super(firstName, lastName, userName, password);
         this.address = address;
-        this.age = age;
+        this.birthDate = birthDate;
         this.membership = membership;
         this.licenceObtained = licenceObtained;
         this.licenceExpiration = licenceExpiration;
@@ -35,12 +35,12 @@ public class Customer extends User {
         this.address = address;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public boolean isMembership() {
