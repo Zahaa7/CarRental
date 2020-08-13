@@ -3,10 +3,8 @@ package ro.jademy.carrental.models;
 import ro.jademy.carrental.models.cars.Car;
 import ro.jademy.carrental.services.CarFilterServiceImpl;
 import ro.jademy.carrental.services.CustomerFilterServiceImpl;
-import ro.jademy.carrental.services.CustomerPaymentServiceImpl;
 import ro.jademy.carrental.services.interfaces.CarFilterService;
 import ro.jademy.carrental.services.interfaces.CustomerFilterService;
-import ro.jademy.carrental.services.interfaces.CustomerPaymentService;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
 
