@@ -58,13 +58,13 @@ public class AutoFleet {
     Car bmwM5_03 = new M5("WBABD53444PC10154", "Petrol", "Sedan", "White",
             "Automatic", "4.4L", 0.999, 625, 4, 4,
             2020, 599);
-    Car bmwI3_01 = new I3("WBAAA1300M0012204", "Petrol", "Hatchback", "Grey",
+    Car bmwI3_01 = new I3("WBAAA1300M0012204", "Electricity", "Hatchback", "Grey",
             "Single-speed", "Li-ion Battery",  0.891, 168, 5,
             4, 2017, 399);
-    Car bmwI3_02 = new I3("WB1051600H0180507", "Petrol", "Hatchback", "Blue",
+    Car bmwI3_02 = new I3("WB1051600H0180507", "Electricity", "Hatchback", "Blue",
             "Single-speed", "Li-ion Battery",  0.511, 184, 5,
             4, 2018, 449);
-    Car bmwI3_03 =  new I3("WBS1M1C57FVZ99405", "Petrol", "Hatchback", "White",
+    Car bmwI3_03 =  new I3("WBS1M1C57FVZ99405", "Electricity", "Hatchback", "White",
             "Single-speed", "Li-ion Battery", 0.436, 184, 5,
             4, 2019, 479);
 

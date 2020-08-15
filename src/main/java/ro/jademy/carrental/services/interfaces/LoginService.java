@@ -28,4 +28,6 @@ public interface LoginService {
 
     void displayLogInMenu();
 
+    void exitApp();
+
 }

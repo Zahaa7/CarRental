@@ -10,7 +10,7 @@ public interface CarFilterService {
     List<Car> filterAllCarsByUser(Customer customer);
     Car filterCarByMake(String make);
     Car filterCarByModel(String model);
-    Car filterCarByFabricationYear(int fabricationYear);
+    Car filterCarByFuelType(String fuelType);
     Car filterCarByBaseRentPrice(int baseRentPrice);
 
 }

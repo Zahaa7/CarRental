@@ -29,7 +29,7 @@ public class CarFilterServiceImpl implements CarFilterService {
     }
 
     @Override
-    public Car filterCarByFabricationYear(int fabricationYear) {
+    public Car filterCarByFuelType(String fuelType) {
         return null;
     }
 

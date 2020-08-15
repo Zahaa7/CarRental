@@ -13,8 +13,7 @@ public class MenuDisplayServiceImpl implements MenuDisplayService {
         System.out.println("                    MAIN MENU                   ");
         System.out.println("1. Register");
         System.out.println("2. Login");
-        System.out.println("3. Service Menu");
-        System.out.println("4. Exit");
+        System.out.println("3. Exit");
     }
 
     @Override
@@ -39,14 +38,14 @@ public class MenuDisplayServiceImpl implements MenuDisplayService {
         System.out.println("                  CUSTOMER MENU                 ");
         System.out.println("1. List all cars");
         System.out.println("2. List available cars");
-        System.out.println("3. Search by:");
+        System.out.println("3. Filter by:");
         System.out.println("4. Change Password");
         System.out.println("5. Logout");
         System.out.println("6. Exit");
     }
 
     @Override
-    public void displayCarFilterMenu() { // A customer filter sub-menu
+    public void displayCarFilterMenu() { // A customer filter sub-menu (Search by:)
         System.out.println(" -----------------------------------------------");
         System.out.println("|    Welcome to the ZAH's Car Rental Service   |");
         System.out.println(" -----------------------------------------------");

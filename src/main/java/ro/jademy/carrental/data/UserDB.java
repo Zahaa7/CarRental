@@ -18,10 +18,12 @@ public class UserDB {
                 true, LocalDate.of(2014, Month.DECEMBER, 10),
                 LocalDate.of(2024, Month.DECEMBER, 10), null);
         User customer_user02 = new Customer("User2", "Userescu2", "customer2", "5678",
-                "Str. Ionelilor", LocalDate.of(1990, Month.AUGUST, 23), false, LocalDate.of(2018, Month.JUNE, 16),
+                "Str. Ionelilor", LocalDate.of(1990, Month.AUGUST, 23), false,
+                LocalDate.of(2018, Month.JUNE, 16),
                 LocalDate.of(2028, Month.JUNE, 16), null);
         User customer_user03 = new Customer("User3", "Userescu3", "customer3", "9012",
-                "Str. Ionelilor", LocalDate.of(1971, Month.MARCH, 6), true, LocalDate.of(2010, Month.OCTOBER, 26),
+                "Str. Ionelilor", LocalDate.of(1971, Month.MARCH, 6), true,
+                LocalDate.of(2010, Month.OCTOBER, 26),
                 LocalDate.of(2020, Month.OCTOBER, 26), null);
         allCustomers.add(customer_user01);
         allCustomers.add(customer_user02);
@@ -32,7 +34,8 @@ public class UserDB {
 
     public  List<User> getAllSalesmen() {
         List<User> allSalesmen = new ArrayList<>();
-        User salesman_user04 = new Salesman("Sale1", "Salesman1", "salesman1", "0000");
+        User salesman_user04 = new Salesman("Sale1", "Salesman1", "salesman1",
+                "0000");
         allSalesmen.add(salesman_user04);
 
         return allSalesmen;

@@ -52,7 +52,12 @@ public class LoginServiceImpl implements LoginService {
     public void doLogOut() {
         System.out.println("You have successfully logged out. Goodbye!");
         loggedInUser = null;
+    }
 
+    @Override
+    public void exitApp() {
+        System.out.println("We're sorry you're leaving. Hope you'll be back soon!");
+        System.exit(0);
     }
 
     @Override
@@ -169,5 +174,4 @@ public class LoginServiceImpl implements LoginService {
         System.out.println("|                     LOGIN:                   |");
         System.out.println(" -----------------------------------------------");
     }
-
 }
