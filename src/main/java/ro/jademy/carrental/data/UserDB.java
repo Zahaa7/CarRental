@@ -12,7 +12,7 @@ import java.util.List;
 public class UserDB {
 
     public  List<User> getAllCustomers() {
-        List<User> allCustomersList = new ArrayList<>();
+        List<User> allCustomers = new ArrayList<>();
         User customer_user01 = new Customer("User1", "Userescu1", "customer1", "1234",
                 "Str. Ionelilor", LocalDate.of(1996, Month.OCTOBER, 7),
                 true, LocalDate.of(2014, Month.DECEMBER, 10),
@@ -23,11 +23,11 @@ public class UserDB {
         User customer_user03 = new Customer("User3", "Userescu3", "customer3", "9012",
                 "Str. Ionelilor", LocalDate.of(1971, Month.MARCH, 6), true, LocalDate.of(2010, Month.OCTOBER, 26),
                 LocalDate.of(2020, Month.OCTOBER, 26), null);
-        allCustomersList.add(customer_user01);
-        allCustomersList.add(customer_user02);
-        allCustomersList.add(customer_user03);
+        allCustomers.add(customer_user01);
+        allCustomers.add(customer_user02);
+        allCustomers.add(customer_user03);
 
-        return allCustomersList;
+        return allCustomers;
     }
 
     public  List<User> getAllSalesmen() {
@@ -38,10 +38,10 @@ public class UserDB {
         return allSalesmen;
     }
 
-    public  List<User> getAllUsers() {
-        List<User> allUsersList = getAllCustomers();
-        allUsersList.addAll(getAllSalesmen());
+    public List<User> getAllUsers() {
+        List<User> allUsers = getAllCustomers();
+        allUsers.addAll(getAllSalesmen());
 
-        return allUsersList;
+        return allUsers;
     }
 }

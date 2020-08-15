@@ -4,27 +4,28 @@ import ro.jademy.carrental.models.User;
 
 public interface LoginService {
 
-    default User validateLogIn(String userName, String password) {
-        return null;
-    }
+    User validateLogIn(String userName, String password);
 
-    default User doLogIn(String userName, String password) {
-        return null;
-    }
+    User doLogIn(String userName, String password);
 
-    default void doLogOut() {
+    void doLogOut();
 
-    }
+    boolean isLoggedIn();
 
-    default boolean isLoggedIn() {
-        return false;
-    }
+    boolean isLoggedInAsCustomer();
 
-    default boolean isLoggedInAsCustomer() {
-        return false;
-    }
+    boolean isLoggedInAsSalesman();
 
-    default boolean isLoggedInAsSalesman() {
-        return false;
-    }
+    boolean isValidUserName(String userName);
+
+    boolean isValidPassword(String password);
+
+    boolean isValidFirstName(String firstName);
+
+    boolean isValidLastName(String lastName);
+
+    void initiateLogIn();
+
+    void displayLogInMenu();
+
 }
