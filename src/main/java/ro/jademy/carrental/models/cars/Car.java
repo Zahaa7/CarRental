@@ -2,6 +2,8 @@ package ro.jademy.carrental.models.cars;
 
 import ro.jademy.carrental.models.RentedCarHistory;
 
+import java.util.Objects;
+
 public class Car {
 
     //----- General properties that all cars have -----//
@@ -20,8 +22,6 @@ public class Car {
     private int seatNumber;
     private int fabricationYear;
     private int baseRentPrice;
-    // private boolean gps;
-    // private boolean ac;
     private RentedCarHistory carRentedHistory;
 
     public Car(String vinNumber, String make, String model, String fuelType, String carType, String color,
@@ -177,11 +177,38 @@ public class Car {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return Double.compare(car.mileage, mileage) == 0 &&
+                horsePower == car.horsePower &&
+                doorNumber == car.doorNumber &&
+                seatNumber == car.seatNumber &&
+                fabricationYear == car.fabricationYear &&
+                baseRentPrice == car.baseRentPrice &&
+                Objects.equals(vinNumber, car.vinNumber) &&
+                Objects.equals(make, car.make) &&
+                Objects.equals(model, car.model) &&
+                Objects.equals(fuelType, car.fuelType) &&
+                Objects.equals(carType, car.carType) &&
+                Objects.equals(color, car.color) &&
+                Objects.equals(transmissionType, car.transmissionType) &&
+                Objects.equals(engine, car.engine) &&
+                Objects.equals(carRentedHistory, car.carRentedHistory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vinNumber, make, model, fuelType, carType, color, transmissionType, engine, mileage,
+                horsePower, doorNumber, seatNumber, fabricationYear, baseRentPrice, carRentedHistory);
+    }
+
     //----- General methods that all cars have -----///
 
 
     public void updateMileage(double mileageAmount) {
 
     }
-
 }

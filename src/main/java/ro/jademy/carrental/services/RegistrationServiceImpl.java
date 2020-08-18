@@ -20,14 +20,15 @@ public class RegistrationServiceImpl implements RegistrationService {
     public RegistrationServiceImpl() {
 
     }
+
     public RegistrationServiceImpl(List<User> allCustomers, List<User> allSalesmen) {
     }
 
     @Override
-    public User customerRegistrationForm(String firstName, String lastName, String userName, String password,
-                                         String address, LocalDate birthDate, boolean membership,
-                                         LocalDate licenceObtained, LocalDate licenceExpiration,
-                                         List<RentedCarHistory> rentedCarsHistory) {
+    public Customer customerRegistrationForm(String firstName, String lastName, String userName, String password,
+                                             String address, LocalDate birthDate, boolean membership,
+                                             LocalDate licenceObtained, LocalDate licenceExpiration,
+                                             List<RentedCarHistory> rentedCarsHistory) {
         return new Customer(firstName, lastName, userName, password, address, birthDate, false,
                 licenceObtained, licenceExpiration, null);
     }
@@ -51,7 +52,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public void initiateRegistration() {
-
+        Customer customer = null;
         do {
             System.out.println("");
             displayRegistrationMenu();
@@ -73,10 +74,11 @@ public class RegistrationServiceImpl implements RegistrationService {
             boolean membership = input.nextBoolean();
             System.out.println("Address:");
             String address = input.nextLine();
-            customerRegistration((Customer) customerRegistrationForm(firstName, lastName,
+            customer = customerRegistrationForm(firstName, lastName,
                     userName, password, address, birthDate, membership, licenceObtained, licenceExpiration,
-                    null));
-        } while (!loginService.isLoggedIn());
+                    null);
+            customerRegistration(customer);
+        } while (!loginService.isLoggedIn(customer));
     }
 
     @Override

@@ -8,13 +8,11 @@ public interface LoginService {
 
     User doLogIn(String userName, String password);
 
-    void doLogOut();
+    boolean isLoggedIn(User loggedInUser);
 
-    boolean isLoggedIn();
+    boolean isLoggedInAsCustomer(User loggedInUser);
 
-    boolean isLoggedInAsCustomer();
-
-    boolean isLoggedInAsSalesman();
+    boolean isLoggedInAsSalesman(User loggedInUser);
 
     boolean isValidUserName(String userName);
 
@@ -24,7 +22,7 @@ public interface LoginService {
 
     boolean isValidLastName(String lastName);
 
-    void initiateLogIn();
+    User initiateLogIn();
 
     void displayLogInMenu();
 

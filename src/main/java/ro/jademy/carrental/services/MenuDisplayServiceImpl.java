@@ -68,8 +68,8 @@ public class MenuDisplayServiceImpl implements MenuDisplayService {
         System.out.println("                    FILTER MENU                   ");
         System.out.println("1. Access data on Customers");
         System.out.println("2. Customer Statistics");
-        System.out.println("3. Ban a Customer");
-        System.out.println("4. Delete an user");
+        System.out.println("3. Delete Customer Account");
+        System.out.println("4. Delete Salesman Account");
         System.out.println("5. Back");
         System.out.println("6. Logout");
     }

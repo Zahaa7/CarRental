@@ -5,30 +5,25 @@ import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.services.interfaces.LoginService;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginServiceImpl implements LoginService {
 
-    private List<User> allUsersList;
-    private User loggedInUser;
-    private static Scanner input = new Scanner(System.in);
-    UserDB userDB = new UserDB();
+    public Scanner input = new Scanner(System.in);
+    public UserDB userDB = new UserDB();
+    public User loggedInUser;
 
     public LoginServiceImpl() {
 
     }
-    public LoginServiceImpl(UserDB userDB) {
-        this.userDB = userDB;
-    }
 
     @Override
     public User validateLogIn(String userName, String password) {
-        for (User user: userDB.getAllUsers()) {
+        for (User user : userDB.getAllUsers()) {
             if (userName.equals(user.getUserName()) && password.equals(user.getPassword())) {
-              return user;
+                return user;
             }
         }
         return null;
@@ -36,6 +31,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public User doLogIn(String userName, String password) {
+        User loggedInUser = null;
         if (validateLogIn(userName, password) instanceof Customer) {
             loggedInUser = validateLogIn(userName, password);
             System.out.println("Welcome " + loggedInUser.getFirstName() +
@@ -45,13 +41,7 @@ public class LoginServiceImpl implements LoginService {
             System.out.println("Welcome " + loggedInUser.getFirstName() +
                     " " + loggedInUser.getLastName() + "!");
         }
-        return null;
-    }
-
-    @Override
-    public void doLogOut() {
-        System.out.println("You have successfully logged out. Goodbye!");
-        loggedInUser = null;
+        return loggedInUser;
     }
 
     @Override
@@ -61,18 +51,18 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean isLoggedIn() {
+    public boolean isLoggedIn(User loggedInUser) {
         return loggedInUser != null;
     }
 
     @Override
-    public boolean isLoggedInAsCustomer() {
-        return isLoggedIn() && !loggedInUser.getUserName().equals("customer");
+    public boolean isLoggedInAsCustomer(User loggedInUser) {
+        return isLoggedIn(loggedInUser) && !loggedInUser.getUserName().equals("customer");
     }
 
     @Override
-    public boolean isLoggedInAsSalesman() {
-        return isLoggedIn() && loggedInUser.getUserName().equals("salesman1");
+    public boolean isLoggedInAsSalesman(User loggedInUser) {
+        return isLoggedIn(loggedInUser) && loggedInUser.getUserName().equals("salesman1");
     }
 
     @Override
@@ -150,22 +140,23 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void initiateLogIn() {
-
+    public User initiateLogIn() {
+        User loggedIn;
         do {
-            System.out.println("");
+            System.out.println();
             displayLogInMenu();
             System.out.println("Username:");
             String userName = input.nextLine();
             System.out.println("Password:");
             String password = input.nextLine();
-            doLogIn(userName, password);
-            if (isLoggedInAsCustomer() || isLoggedInAsSalesman()) {
+            loggedIn = doLogIn(userName, password);
+            if (isLoggedInAsCustomer(loggedIn) || isLoggedInAsSalesman(loggedIn)) {
                 System.out.println("Login successfully!!!");
             } else {
                 System.out.println("Wrong credentials! Please, try again!");
             }
-        } while (!isLoggedIn());
+        } while (!isLoggedIn(loggedIn));
+        return loggedIn;
     }
 
     @Override

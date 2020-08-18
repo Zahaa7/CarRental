@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface RegistrationService {
 
-    User customerRegistrationForm (String firstName, String lastName, String userName, String password, String address,
+    Customer customerRegistrationForm (String firstName, String lastName, String userName, String password, String address,
                                    LocalDate birthDate, boolean membership, LocalDate licenceObtained,
                                    LocalDate licenceExpiration, List<RentedCarHistory> rentedCarsHistory);
 
