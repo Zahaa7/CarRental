@@ -3,48 +3,38 @@ package ro.jademy.carrental.data;
 import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
-
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDB {
 
-    public  List<User> getAllCustomers() {
-        List<User> allCustomers = new ArrayList<>();
-        User customer_user01 = new Customer("User1", "Userescu1", "customer1", "1234",
-                "Str. Ionelilor", LocalDate.of(1996, Month.OCTOBER, 7),
-                true, LocalDate.of(2014, Month.DECEMBER, 10),
-                LocalDate.of(2024, Month.DECEMBER, 10), null);
-        User customer_user02 = new Customer("User2", "Userescu2", "customer2", "5678",
-                "Str. Ionelilor", LocalDate.of(1990, Month.AUGUST, 23), false,
-                LocalDate.of(2018, Month.JUNE, 16),
-                LocalDate.of(2028, Month.JUNE, 16), null);
-        User customer_user03 = new Customer("User3", "Userescu3", "customer3", "9012",
-                "Str. Ionelilor", LocalDate.of(1971, Month.MARCH, 6), true,
-                LocalDate.of(2010, Month.OCTOBER, 26),
-                LocalDate.of(2020, Month.OCTOBER, 26), null);
-        allCustomers.add(customer_user01);
-        allCustomers.add(customer_user02);
-        allCustomers.add(customer_user03);
+    public static List<User> getCustomerList() {
+        List<User> customerList = new ArrayList<>();
+        customerList.add(new Customer("Alex", "Zaha", "alex.z", "1111",
+                "13 Septembrie, Sector 5", "Male", "1996-10-07", "2015-03-26",
+                2, 0, false));
+        customerList.add(new Customer("Monica", "Lazar", "monica.l", "2222",
+                "13 Septembrie, Sector 5", "Female", "1997-10-06", "2017-06-15",
+                0, 0, false));
 
-        return allCustomers;
+        return customerList;
     }
 
-    public  List<User> getAllSalesmen() {
-        List<User> allSalesmen = new ArrayList<>();
-        User salesman_user04 = new Salesman("Sale1", "Salesman1", "salesman1",
-                "0000");
-        allSalesmen.add(salesman_user04);
+    public static List<User> getAdminList() {
+        List<User> adminList = new ArrayList<>();
+        adminList.add(new Salesman("Admin", "Adminescu", "admin", "0000"));
 
-        return allSalesmen;
+        return adminList;
     }
 
-    public List<User> getAllUsers() {
-        List<User> allUsers = getAllCustomers();
-        allUsers.addAll(getAllSalesmen());
+    public static List<User> getAllUserList() {
+        List<User> userList = getCustomerList();
+        userList.addAll(getAdminList());
 
-        return allUsers;
+        return userList;
+    }
+
+    public static long getShopBalance() {
+        return 0;
     }
 }

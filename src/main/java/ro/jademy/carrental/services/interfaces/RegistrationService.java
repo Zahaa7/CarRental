@@ -1,18 +1,15 @@
 package ro.jademy.carrental.services.interfaces;
 
-import ro.jademy.carrental.models.RentedCarHistory;
 import ro.jademy.carrental.models.User;
+import ro.jademy.carrental.services.LoginServiceImpl;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
 
-import java.time.LocalDate;
-import java.util.List;
-
 public interface RegistrationService {
 
-    Customer customerRegistrationForm (String firstName, String lastName, String userName, String password, String address,
-                                   LocalDate birthDate, boolean membership, LocalDate licenceObtained,
-                                   LocalDate licenceExpiration, List<RentedCarHistory> rentedCarsHistory);
+    Customer customerRegistrationForm (String firstName, String lastName, String userName, String password,
+                                       String address, String gender, String birthDate, String licenceObtained,
+                                       int accidentsNo, boolean membership);
 
     void customerRegistration(Customer customer);
 
@@ -21,7 +18,7 @@ public interface RegistrationService {
 
     void salesmanRegistration(Salesman salesman);
 
-    void initiateRegistration();
+    void initiateRegistration(LoginServiceImpl loginService);
 
     void displayRegistrationMenu();
 

@@ -1,10 +1,10 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.data.UserDB;
 import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.services.interfaces.LoginService;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,18 +12,22 @@ import java.util.regex.Pattern;
 public class LoginServiceImpl implements LoginService {
 
     public Scanner input = new Scanner(System.in);
-    public UserDB userDB = new UserDB();
-    public User loggedInUser;
+    private List<User> userList;
+    private User loggedInUser = null;
 
-    public LoginServiceImpl() {
+    public LoginServiceImpl(List<User> userList) {
+        this.userList = userList;
+    }
 
+    public User getLoggedInUser() {
+        return loggedInUser;
     }
 
     @Override
     public User validateLogIn(String userName, String password) {
-        for (User user : userDB.getAllUsers()) {
-            if (userName.equals(user.getUserName()) && password.equals(user.getPassword())) {
-                return user;
+        for (User currentUser : userList) {
+            if (userName.equals(currentUser.getUserName()) && password.equals(currentUser.getPassword())) {
+                return currentUser;
             }
         }
         return null;
@@ -31,9 +35,12 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public User doLogIn(String userName, String password) {
-        User loggedInUser = null;
+
         if (validateLogIn(userName, password) instanceof Customer) {
             loggedInUser = validateLogIn(userName, password);
+            ((Customer) loggedInUser).calculateRentalCoeff();
+            ((Customer) loggedInUser).calculateExperience();
+            ((Customer) loggedInUser).calculateAge();
             System.out.println("Welcome " + loggedInUser.getFirstName() +
                     " " + loggedInUser.getLastName() + "!");
         } else if (validateLogIn(userName, password) instanceof Salesman) {
@@ -63,6 +70,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public boolean isLoggedInAsSalesman(User loggedInUser) {
         return isLoggedIn(loggedInUser) && loggedInUser.getUserName().equals("salesman1");
+    }
+
+    public boolean validateInput(String firstName, String lastName, String userName , String password){
+        if (isValidUserName(userName) || isValidPassword(password)
+                || isValidFirstName(firstName) || isValidLastName(lastName)){
+            return true;
+        }
+        System.out.println("Invalid input format!");
+        return false;
     }
 
     @Override
@@ -128,6 +144,10 @@ public class LoginServiceImpl implements LoginService {
         return matcher.matches();
     }
 
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
     @Override
     public boolean isValidLastName(String lastName) {
         String regex = "^[\\p{L}\\s.’\\-,]+$";
@@ -161,8 +181,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void displayLogInMenu() {
-        System.out.println(" -----------------------------------------------");
+        System.out.println("+----------------------------------------------+");
         System.out.println("|                     LOGIN:                   |");
-        System.out.println(" -----------------------------------------------");
+        System.out.println("+----------------------------------------------+");
     }
 }

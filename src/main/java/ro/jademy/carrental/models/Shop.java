@@ -2,45 +2,63 @@ package ro.jademy.carrental.models;
 
 import ro.jademy.carrental.models.cars.Car;
 import ro.jademy.carrental.services.*;
-import ro.jademy.carrental.services.interfaces.CarFilterService;
-import ro.jademy.carrental.services.interfaces.UserService;
-import ro.jademy.carrental.services.interfaces.CustomerStatistics;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Shop {
 
     public static final Scanner INPUT = new Scanner(System.in);
-    private CarFilterService carFilterService = new CarFilterServiceImpl();
-    private UserService userService = new UserServiceImpl();
-    private CustomerStatistics customerStatistics = new CustomerStatisticsImpl();
-    private RegistrationServiceImpl registrationService = new RegistrationServiceImpl();
-    private LoginServiceImpl loginService = new LoginServiceImpl();
-    private MenuDisplayServiceImpl menuDisplayService = new MenuDisplayServiceImpl();
-    public List<Car> getAllCars() {
-        return carFilterService.getAllCars();
-    }
-    public User loggedInUser;
 
+
+    private List<Car> carList;
+    private List<User> userList;
+    private List<RentedCarHistory> rentedCarList = new ArrayList<>();
+    private List<RentedCarHistory> rentedCarHistoryList = new ArrayList<>();
+    private List<RentedCarHistory> pendingTransactionsList = new ArrayList<>();
+
+
+    // services
+    private final MenuDisplayServiceImpl MENU_DISPLAY_SERVICE;
+    private CustomerStatisticsImpl customerStatistics;
+    private CarFilterServiceImpl carFilterService;
+    private UserServiceImpl userService;
+    private LoginServiceImpl loginService;
+    private RegistrationServiceImpl registrationService;
+
+
+    public Shop(List<Car> carList, List<User> userList, MenuDisplayServiceImpl MENU_DISPLAY_SERVICE,
+                CustomerStatisticsImpl customerStatistics, CarFilterServiceImpl carFilterService,
+                UserServiceImpl userService, LoginServiceImpl loginService,
+                RegistrationServiceImpl registrationService) {
+        this.carList = carList;
+        this.userList = userList;
+        this.MENU_DISPLAY_SERVICE = MENU_DISPLAY_SERVICE;
+        this.customerStatistics = customerStatistics;
+        this.carFilterService = carFilterService;
+        this.userService = userService;
+        this.loginService = loginService;
+        this.registrationService = registrationService;
+    }
 
     public void mainMenuController() {
 
         do {
             System.out.println();
-            menuDisplayService.displayMainMenu();
+            MENU_DISPLAY_SERVICE.displayMainMenu();
             System.out.println("If you don't have an account yet, register now for free!");
             System.out.println("Please, choose your option from down below: ");
             int option = INPUT.nextInt();
             switch (option) {
                 case 1: // Registration
-                    registrationService.initiateRegistration();
+                    registrationService.initiateRegistration(loginService);
                     break;
                 case 2: // Login
-                    loggedInUser = loginService.initiateLogIn();
-                    if (loginService.isLoggedInAsSalesman(loggedInUser)) {
-                        salesmanSubMenuController();
+                    loginService.initiateLogIn();
+                    if (loginService.isLoggedInAsSalesman(loginService.getLoggedInUser())) {
+                        salesmanMenuController();
                     } else {
-                        customerSubMenuController();
+                        customerMenuController();
                     }
                     break;
                 case 3: // Exit app
@@ -49,27 +67,28 @@ public class Shop {
                     System.out.println("Wrong option. Please, try again!");
                     break;
             }
-        } while (!loginService.isLoggedIn(loggedInUser));
+        } while (!loginService.isLoggedIn(loginService.getLoggedInUser()));
     }
 
-    public void customerSubMenuController() {
+    public void customerMenuController() {
         String keyword;
         do {
             System.out.println();
-            menuDisplayService.displayCustomerMenu();
+            MENU_DISPLAY_SERVICE.displayCustomerMenu();
             System.out.println("Please, choose your option from down below: ");
             int option = INPUT.nextInt();
             switch (option) {
                 case 1: // List all cars
-                    carFilterService.getAllCars();
+
                     break;
                 case 2: // List available cars
-                    carFilterService.getAvailableCars();
+
                     break;
                 case 3: // Filter by:
-                    label1: do {
+                    label1:
+                    do {
                         System.out.println();
-                        menuDisplayService.displayCarFilterMenu();
+                        MENU_DISPLAY_SERVICE.displayCarFilterMenu();
                         option = INPUT.nextByte();
                         switch (option) {
                             case 1: // Filter by make
@@ -88,7 +107,8 @@ public class Shop {
                                 System.out.println("Please, enter your budget:");
                                 INPUT.skip("\n");
                                 keyword = INPUT.nextLine().toUpperCase();
-                                carFilterService.filterByPrice(Integer.parseInt(keyword));
+                                carFilterService.filterByPrice(loginService.getLoggedInUser(), carList,
+                                        0, 0);
                                 break;
                             case 4: // Filter by fuelType
                                 System.out.println("Please, enter your favourite fuel-type " +
@@ -106,11 +126,11 @@ public class Shop {
                                 System.out.println("Invalid choice. Please, choose only between displayed options!");
                                 break;
                         }
-                    } while (loginService.isLoggedInAsCustomer(loggedInUser));
+                    } while (loginService.isLoggedInAsCustomer(loginService.getLoggedInUser()));
                     break;
                 case 4: // Change Password
-                    userService.changePassword(loggedInUser);
-                    System.out.println(loggedInUser); //printare pentru testare
+                    userService.changePassword(loginService.getLoggedInUser());
+                    System.out.println(loginService.getLoggedInUser().toString()); //printare pentru testare
                     break;
                 case 5: // Logout
                     doLogOut();
@@ -122,51 +142,19 @@ public class Shop {
                     System.out.println("Invalid choice. Please, choose only between displayed options!");
                     break;
             }
-        } while (loginService.isLoggedInAsCustomer(loggedInUser));
+        } while (loginService.isLoggedInAsCustomer(loginService.getLoggedInUser()));
     }
 
-    public void salesmanSubMenuController() {
+    public void salesmanMenuController() {
         String keyword;
         do {
             System.out.println();
-            menuDisplayService.displaySalesmanMenu();
+            MENU_DISPLAY_SERVICE.displaySalesmanMenu();
             System.out.println("Please, choose your option from down below: ");
             int option = INPUT.nextInt();
             switch (option) {
                 case 1: // Manage Customers
-                    label2: do {
-                        System.out.println();
-                        menuDisplayService.displayCustomerFilterMenu();
-                        option = INPUT.nextByte();
-                        switch (option) {
-                            case 1: // Access data on Customers
-                                userService.displayAllCustomers();
-                                break;
-                            case 2: // Customer Statistics
-                                customerStatistics.getCustomerStatistics();
-                                break;
-                            case 3: // Delete a Customer Account
-                                System.out.println("Please, enter the customer's last name:");
-                                INPUT.skip("\n");
-                                keyword = INPUT.nextLine().toUpperCase();
-                                userService.deleteCustomerAccount(userService.searchCustomer(keyword));
-                                break;
-                            case 4: // Delete a Salesman Account
-                                System.out.println("Please, enter the salesman's last name:");
-                                INPUT.skip("\n");
-                                keyword = INPUT.nextLine().toUpperCase();
-                                userService.deleteSalesmanAccount(userService.searchSalesman(keyword));
-                                break;
-                            case 5: // Return to previous menu
-                                break label2;
-                            case 6: // Logout
-                                doLogOut();
-                                break;
-                            default: // In case of picking a wrong option
-                                System.out.println("Invalid choice. Please, choose only between displayed options!");
-                                break;
-                        }
-                    } while (loginService.isLoggedInAsCustomer(loggedInUser));
+
                     break;
                 case 2: // Manage Auto Fleet
                     break;
@@ -180,11 +168,23 @@ public class Shop {
                     System.out.println("Invalid choice. Please, choose only between displayed options!");
                     break;
             }
-        } while (loginService.isLoggedInAsSalesman(loggedInUser));
+        } while (loginService.isLoggedInAsSalesman(loginService.getLoggedInUser()));
+    }
+
+    public void manageCustomersSubMenu() {
+
+    }
+
+    public Car customerCarRenting() {
+        System.out.println("Please, choose the car you want to rent: ");
+        int index = INPUT.nextInt();
+
+        return carList.get(index - 1);
     }
 
     public void doLogOut() {
         System.out.println("Log-out successfully!");
-        loggedInUser = null;
+        loginService.setLoggedInUser(null);
+        mainMenuController();
     }
 }

@@ -2,10 +2,10 @@ package ro.jademy.carrental.models;
 
 public class User {
 
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String password;
+    protected String firstName;
+    protected String lastName;
+    protected String userName;
+    protected String password;
 
     public User(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;

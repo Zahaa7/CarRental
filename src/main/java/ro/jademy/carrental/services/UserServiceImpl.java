@@ -1,19 +1,24 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.data.UserDB;
 import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.users.Customer;
 import ro.jademy.carrental.users.Salesman;
 import ro.jademy.carrental.services.interfaces.UserService;
+import java.util.List;
+import java.util.Scanner;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDB userDB = new UserDB();
-    private LoginServiceImpl loginService = new LoginServiceImpl();
+    private Scanner input = new Scanner(System.in);
+    private List<User> userList;
+
+    public UserServiceImpl(List<User> userList) {
+        this.userList = userList;
+    }
 
     @Override
     public Customer searchCustomer(String lastName) {
-        for (User customer: userDB.getAllCustomers()) {
+        for (User customer: userList) {
             if (lastName.equalsIgnoreCase(customer.getLastName())) {
                 return (Customer) customer;
             }
@@ -23,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Salesman searchSalesman(String lastName) {
-        for (User salesman: userDB.getAllSalesmen()) {
+        for (User salesman: userList) {
             if (lastName.equalsIgnoreCase(salesman.getLastName())) {
                 return (Salesman) salesman;
             }
@@ -33,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void displayAllCustomers() {
-        for (User userList : userDB.getAllCustomers()) {
+        for (User userList : userList) {
             System.out.println(userList.toString());
         }
     }
@@ -41,8 +46,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean searchPassword() {
         System.out.println("Please, type your current password:");
-        String oldPassword = loginService.input.nextLine();
-        for (User customer: userDB.getAllCustomers()) {
+        String oldPassword = input.nextLine();
+        for (User customer: userList) {
             if (oldPassword.equalsIgnoreCase(customer.getPassword())) {
                 return true;
             }
@@ -54,9 +59,10 @@ public class UserServiceImpl implements UserService {
     public void changePassword(User loggedInUser) {
         if (searchPassword()) {
             System.out.println("Type in the new password:");
-            String newPassword = loginService.input.nextLine();
+            String newPassword = input.nextLine();
             loggedInUser.setPassword(newPassword);
             System.out.println("Password changed successfully!");
+            System.out.println(loggedInUser);
         } else {
             System.out.println("Wrong password!");
         }
@@ -65,12 +71,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteCustomerAccount(Customer customer) {
         System.out.println("Customer's account deleted successfully!");
-        userDB.getAllCustomers().remove(customer);
+        userList.remove(customer);
     }
 
     @Override
     public void deleteSalesmanAccount(Salesman salesman) {
         System.out.println("Salesman's account deleted successfully!");
-        userDB.getAllSalesmen().remove(salesman);
+        userList.remove(salesman);
     }
 }

@@ -1,29 +1,23 @@
 package ro.jademy.carrental.services.interfaces;
 
-public interface CustomerPaymentService {
+public interface CustomerService {
 
-    default void applyDiscount() {
-        // only for membership pass
-    }
+     void applyMembershipDiscount(); // only for membership pass
 
-    default void calculateFeePerDay() {
-        // fee to paid for a certain car per day
-    }
 
-    default void calculateFee() {
-        // fee to be paid for each rented car for more than one day
-    }
+     void calculateFeePerDay(); // fee to paid for a certain car per day
 
-    default void  calculateCollisionDamageWaiver() {
-        // mandatory service, in case of damage through an accident
-    }
 
-    default void calculateLossDamageWaiver() {
-        // mandatory service, acts as theft protection
-        // will cover car replacement if the rental car was stolen
-    }
+     void calculateFee();  // fee to be paid for each rented car for more than one day
 
-    default void calculatePenalties() {
+     void calculateCollisionDamageWaiver(); // mandatory service, in case of damage through an accident
+
+
+     void calculateLossDamageWaiver();   // mandatory service, acts as theft protection
+                                         // will cover car replacement if the rental car was stolen
+
+
+     void calculatePenalties();
         // optional service, only charged for:
             /* - Missing fuel
                - Loss of car's documents / key / accessories
@@ -41,8 +35,12 @@ public interface CustomerPaymentService {
                - Partial/total deterioration caused as a result of smoking inside the car
                - Breaking or scratching the leather inside the vehicle
              */
-    }
 
+    public void calculateAge();
+
+    public void calculateExperience();
+
+    public void calculateRentalCoeff();
 
 
 
