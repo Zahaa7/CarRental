@@ -1,8 +1,7 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.services.interfaces.CustomerService;
-import ro.jademy.carrental.users.Customer;
+import ro.jademy.carrental.models.users.Customer;
 import java.time.LocalDate;
 
 public class CustomerServiceImpl implements CustomerService {

@@ -1,6 +1,8 @@
 package ro.jademy.carrental.models.cars;
 
+import org.apache.commons.lang3.StringUtils;
 import ro.jademy.carrental.models.RentedCarHistory;
+
 
 import java.util.Objects;
 
@@ -22,6 +24,7 @@ public class Car {
     private int seatNumber;
     private int fabricationYear;
     private int baseRentPrice;
+    private boolean rented = false;
     private RentedCarHistory carRentedHistory;
 
     public Car(String vinNumber, String make, String model, String fuelType, String carType, String color,
@@ -42,6 +45,14 @@ public class Car {
         this.fabricationYear = fabricationYear;
         this.baseRentPrice = baseRentPrice;
         this.carRentedHistory = getCarRentedHistory();
+    }
+
+    public boolean isRented() {
+        return rented;
+    }
+
+    public void setRented(boolean rented) {
+        this.rented = rented;
     }
 
     public String getVinNumber() {
@@ -158,23 +169,20 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "vinNumber='" + vinNumber + '\'' +
-                ", make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", fuelType='" + fuelType + '\'' +
-                ", carType='" + carType + '\'' +
-                ", color='" + color + '\'' +
-                ", transmissionType='" + transmissionType + '\'' +
-                ", engine='" + engine + '\'' +
-                ", mileage=" + mileage +
-                ", horsePower=" + horsePower +
-                ", doorNumber=" + doorNumber +
-                ", seatNumber=" + seatNumber +
-                ", fabricationYear=" + fabricationYear +
-                ", baseRentPrice=" + baseRentPrice +
-                ", carRentedHistory=" + carRentedHistory +
-                '}';
+        return  StringUtils.center(vinNumber, 14, " ") +
+                StringUtils.center(make, 14, " ") +
+                StringUtils.center(model, 16, " ") +
+                StringUtils.center(fuelType, 14, " ") +
+                StringUtils.center(carType, 14, " ") +
+                StringUtils.center(color, 16, " ") +
+                StringUtils.center(transmissionType, 14, " ") +
+                StringUtils.center(engine, 14, " ") +
+                StringUtils.center(String.valueOf(mileage), 14, ' ') +
+                StringUtils.center(String.valueOf(horsePower), 14, " ") +
+                StringUtils.center(String.valueOf(doorNumber), 10, ' ') +
+                StringUtils.center(String.valueOf(seatNumber), 10, ' ') +
+                StringUtils.center(String.valueOf(fabricationYear), 12, ' ') +
+                StringUtils.center(String.valueOf(baseRentPrice), 20, " ");
     }
 
     @Override

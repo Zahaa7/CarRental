@@ -1,4 +1,4 @@
-package ro.jademy.carrental.users;
+package ro.jademy.carrental.models.users;
 
 
 import ro.jademy.carrental.models.User;

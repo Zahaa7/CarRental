@@ -1,17 +1,14 @@
 package ro.jademy.carrental.services;
 
-import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.models.cars.Car;
 import ro.jademy.carrental.services.interfaces.CarFilterService;
-import ro.jademy.carrental.users.Customer;
-import ro.jademy.carrental.users.Salesman;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarFilterServiceImpl implements CarFilterService {
 
     private List<Car> carList;
+
     public CarFilterServiceImpl(List<Car> carList) {
         this.carList = carList;
     }
@@ -19,18 +16,19 @@ public class CarFilterServiceImpl implements CarFilterService {
 
     @Override
     public List<Car> filterByMake(String make) {
-       List<Car> tempCarList = new ArrayList<>();
+        List<Car> tempCarList = new ArrayList<>();
         for (Car car : carList) {
             if (car.getMake().toLowerCase().contains(make.toLowerCase())) {
                 tempCarList.add(car);
             }
         }
-       if (tempCarList.isEmpty()) {
-           System.out.println("Error 404! Make not found.");
-           return carList;
-       } else {
-           return tempCarList;
-       }
+        if (tempCarList.isEmpty()) {
+            System.out.println("Error 404! Make not found.");
+            return carList;
+        } else {
+            return tempCarList;
+
+        }
     }
 
     @Override
@@ -128,41 +126,8 @@ public class CarFilterServiceImpl implements CarFilterService {
             return tempCarList;
         }
     }
-
     @Override
-    public List<Car> filterByDoorNo(List<Car> carList, int minInputBound, int maxInputBound) {
-        List<Car> tempCarList = new ArrayList<>();
-        for (Car car : carList) {
-            if (car.getDoorNumber() >= minInputBound && car.getDoorNumber() <= maxInputBound) {
-                tempCarList.add(car);
-            }
-        }
-        if (tempCarList.isEmpty()) {
-            System.out.println("Error 404! Door-number not found.");
-            return carList;
-        } else {
-            return tempCarList;
-        }
-    }
-
-    @Override
-    public List<Car> filterBySeatNo(List<Car> carList, int minInputBound, int maxInputBound) {
-        List<Car> tempCarList = new ArrayList<>();
-        for (Car car : carList) {
-            if (car.getSeatNumber() >= minInputBound && car.getSeatNumber() <= maxInputBound) {
-                tempCarList.add(car);
-            }
-        }
-        if (tempCarList.isEmpty()) {
-            System.out.println("Error 404! Seat-number not found.");
-            return carList;
-        } else {
-            return tempCarList;
-        }
-    }
-
-    @Override
-    public List<Car> filterByFabricationYear(List<Car> carList, int minInputBound, int maxInputBound) {
+    public List<Car> filterByFabricationYear(int minInputBound, int maxInputBound) {
         List<Car> tempCarList = new ArrayList<>();
         for (Car car : carList) {
             if (car.getFabricationYear() >= minInputBound && car.getFabricationYear() <= maxInputBound) {
@@ -178,23 +143,12 @@ public class CarFilterServiceImpl implements CarFilterService {
     }
 
     @Override
-    public List<Car> filterByPrice(User user, List<Car> carList, int minPriceBound, int maxPriceBound) {
+    public List<Car> filterByPrice(int minPriceBound, int maxPriceBound) {
         List<Car> tempCarList = new ArrayList<>();
-        if (user instanceof Customer) {
-            double rentalCoeff = ((Customer)user).getRentalCoeff();
-            for (Car car : carList) {
-                if ((car.getBaseRentPrice() * rentalCoeff + 1) >= minPriceBound
-                        && (car.getBaseRentPrice() * rentalCoeff - 1) <= maxPriceBound) {
-                    tempCarList.add(car);
-                }
-            }
-        }
-        if (user instanceof Salesman) {
-            System.out.println("Using salesman basePrice search:");
-            for (Car car : carList) {
-                if (car.getBaseRentPrice() <= maxPriceBound) {
-                    tempCarList.add(car);
-                }
+        for (Car car : carList) {
+            if ((car.getBaseRentPrice() >= minPriceBound
+                    && car.getBaseRentPrice() <= maxPriceBound)) {
+                tempCarList.add(car);
             }
         }
         if (tempCarList.isEmpty()) {
@@ -204,5 +158,5 @@ public class CarFilterServiceImpl implements CarFilterService {
             return tempCarList;
         }
     }
-
 }
+

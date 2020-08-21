@@ -72,6 +72,8 @@ public class Shop {
 
     public void customerMenuController() {
         String keyword;
+        int minInputBound;
+        int maxInputBound;
         do {
             System.out.println();
             MENU_DISPLAY_SERVICE.displayCustomerMenu();
@@ -79,7 +81,7 @@ public class Shop {
             int option = INPUT.nextInt();
             switch (option) {
                 case 1: // List all cars
-
+                        showAllCars(carList);
                     break;
                 case 2: // List available cars
 
@@ -92,34 +94,75 @@ public class Shop {
                         option = INPUT.nextByte();
                         switch (option) {
                             case 1: // Filter by make
-                                System.out.println("Please, enter a make brand:");
+                                System.out.println("Please, enter a make brand: " +
+                                        "[Audi / BMW / Mercedes / Land-Rover / Range-Rover]");
                                 INPUT.skip("\n");
-                                keyword = INPUT.nextLine().toUpperCase(); // de testat pt BMW
-                                carFilterService.filterByMake(keyword);
+                                keyword = INPUT.nextLine().toUpperCase();
+                                showAllCars(carFilterService.filterByMake(keyword));
                                 break;
                             case 2: // Filter by model
-                                System.out.println("Please, enter a model:");
+                                System.out.println("Please, enter a model: " +
+                                        "[A5/Q7/R8 / M5/X7/I3 / AMG/CLS/GLA / " +
+                                        "\nDefender/Discovery/Freelander /" +
+                                        "\nEvoque/Velar/Vogue]");
                                 INPUT.skip("\n");
                                 keyword = INPUT.nextLine().toUpperCase();
-                                carFilterService.filterByModel(keyword);
+                                showAllCars(carFilterService.filterByModel(keyword));
                                 break;
                             case 3: // Filter by budget
-                                System.out.println("Please, enter your budget:");
-                                INPUT.skip("\n");
-                                keyword = INPUT.nextLine().toUpperCase();
-                                carFilterService.filterByPrice(loginService.getLoggedInUser(), carList,
-                                        0, 0);
+                                System.out.println("Choose the price range!");
+                                System.out.println("Starting at:");
+                                minInputBound = INPUT.nextInt();
+                                System.out.println("Ending at:");
+                                maxInputBound = INPUT.nextInt();
+                                showAllCars(carFilterService.filterByPrice(minInputBound, maxInputBound));
                                 break;
                             case 4: // Filter by fuelType
-                                System.out.println("Please, enter your favourite fuel-type " +
-                                        "(Petrol/Diesel/Electricity):");
+                                System.out.println("Please, choose your favourite fuel-type: " +
+                                        "[Petrol / Diesel / Electricity]:");
                                 INPUT.skip("\n");
                                 keyword = INPUT.nextLine().toUpperCase();
-                                carFilterService.filterByFuelType(keyword);
+                                showAllCars(carFilterService.filterByFuelType(keyword));
                                 break;
-                            case 5: // Return to previous menu
+                            case 5: // Filter by color
+                                System.out.println("Please, choose your favourite color: " +
+                                        "[White / Black / Grey / Red / Blue / Green]");
+                                INPUT.skip("\n");
+                                keyword = INPUT.nextLine().toUpperCase();
+                                showAllCars(carFilterService.filterByColor(keyword));
+                                break;
+                            case 6: // Filter by engine
+                                System.out.println("Please, choose your favourite engine: " +
+                                        "[2.0L / 2.7L / 3.0L / 4.1L / 4.4L / 5.2L / Electric]");
+                                INPUT.skip("\n");
+                                keyword = INPUT.nextLine().toUpperCase();
+                                showAllCars(carFilterService.filterByEngine(keyword));
+                                break;
+                            case 7: // Filter by car-type
+                                System.out.println("Please, choose your favourite engine: " +
+                                        "[Sedan / Coupe / Cabriolet / SUV / Hatchback]");
+                                INPUT.skip("\n");
+                                keyword = INPUT.nextLine().toUpperCase();
+                                showAllCars(carFilterService.filterByCarType(keyword));
+                                break;
+                            case 8: // Filter by transmission-type
+                                System.out.println("Please, choose your favourite transmission-type: " +
+                                        "[Automatic / Manual / Single-speed]");
+                                INPUT.skip("\n");
+                                keyword = INPUT.nextLine().toUpperCase();
+                                showAllCars(carFilterService.filterByTransmissionType(keyword));
+                                break;
+                            case 9: // Filter by fabrication-year
+                                System.out.println("Choose the year range:");
+                                System.out.println("Starting at:");
+                                minInputBound = INPUT.nextInt();
+                                System.out.println("Ending at:");
+                                maxInputBound = INPUT.nextInt();
+                                showAllCars(carFilterService.filterByFabricationYear(minInputBound, maxInputBound));
+                                break;
+                            case 10: // Return to previous menu
                                 break label1;
-                            case 6: // Logout
+                            case 11: // Logout
                                 doLogOut();
                                 break;
                             default: // In case of picking a wrong option
@@ -180,6 +223,17 @@ public class Shop {
         int index = INPUT.nextInt();
 
         return carList.get(index - 1);
+    }
+
+    public void showAllCars( List<Car> cars ) {
+        System.out.println(MenuDisplayServiceImpl.getCarHeader());
+        for (int i = 0; i < cars.size(); i++) {
+            Car car = cars.get(i);
+            if (!car.isRented()) {
+                String padding = i < 9 ? " " : "";
+                System.out.println(padding + (i + 1) + ". " + car);
+            }
+        }
     }
 
     public void doLogOut() {

@@ -1,5 +1,6 @@
 package ro.jademy.carrental.services;
 
+import org.apache.commons.lang3.StringUtils;
 import ro.jademy.carrental.services.interfaces.MenuDisplayService;
 
 public class MenuDisplayServiceImpl implements MenuDisplayService {
@@ -53,10 +54,15 @@ public class MenuDisplayServiceImpl implements MenuDisplayService {
         System.out.println("                    FILTER MENU                ");
         System.out.println(" 1. Filter by make");
         System.out.println(" 2. Filter by model");
-        System.out.println(" 3. Filter by color");
-        System.out.println(" 4. Filter by engine");
-        System.out.println("5. Back");
-        System.out.println("6. Logout");
+        System.out.println(" 3. Filter by budget");
+        System.out.println(" 4. Filter by fuel-type");
+        System.out.println(" 5. Filter by color");
+        System.out.println(" 6. Filter by engine");
+        System.out.println(" 7. Filter by car-type");
+        System.out.println(" 8. Filter by transmission-type");
+        System.out.println(" 9. Filter by fabrication-year");
+        System.out.println("10. Back");
+        System.out.println("11. Logout");
 
     }
 
@@ -88,5 +94,22 @@ public class MenuDisplayServiceImpl implements MenuDisplayService {
         System.out.println("4. Check income");
         System.out.println("5. Logout");
         System.out.println("6. Exit");
+    }
+
+    public static String getCarHeader() {
+        return  StringUtils.center("VIN", 23, " ") +
+                StringUtils.center("MAKE", 11, " ") +
+                StringUtils.center("MODEL", 19, " ") +
+                StringUtils.center("FUEL-TYPE", 10, " ") +
+                StringUtils.center("CAR-TYPE", 18, " ") +
+                StringUtils.center("COLOR", 12, " ") +
+                StringUtils.center("TRANSMISSION", 16, " ") +
+                StringUtils.center("ENGINE", 15, " ") +
+                StringUtils.center("MILEAGE", 12, ' ') +
+                StringUtils.center("HORSE-POWER", 15, " ") +
+                StringUtils.center("DOORS", 10, ' ') +
+                StringUtils.center("SEATS", 10, ' ') +
+                StringUtils.center("FABRICATION-YEAR", -5, ' ') +
+                StringUtils.center("PRICE", 12, " ");
     }
 }

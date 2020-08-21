@@ -2,8 +2,8 @@ package ro.jademy.carrental.services.interfaces;
 
 import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.services.LoginServiceImpl;
-import ro.jademy.carrental.users.Customer;
-import ro.jademy.carrental.users.Salesman;
+import ro.jademy.carrental.models.users.Customer;
+import ro.jademy.carrental.models.users.Salesman;
 
 public interface RegistrationService {
 

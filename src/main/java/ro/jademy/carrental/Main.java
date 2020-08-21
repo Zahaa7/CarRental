@@ -17,7 +17,6 @@ public class Main {
         List<User> users = new ArrayList<>();
         users.addAll(UserDB.getAdminList());
         users.addAll(UserDB.getCustomerList());
-
         List<Car> cars = new ArrayList<>();
         cars.addAll(AutoFleet.getAllCarList());
 

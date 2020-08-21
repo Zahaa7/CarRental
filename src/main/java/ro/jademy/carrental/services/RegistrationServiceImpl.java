@@ -2,8 +2,8 @@ package ro.jademy.carrental.services;
 
 import ro.jademy.carrental.models.User;
 import ro.jademy.carrental.services.interfaces.RegistrationService;
-import ro.jademy.carrental.users.Customer;
-import ro.jademy.carrental.users.Salesman;
+import ro.jademy.carrental.models.users.Customer;
+import ro.jademy.carrental.models.users.Salesman;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
